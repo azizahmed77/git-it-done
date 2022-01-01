@@ -19,8 +19,13 @@ let getUserRepos = (user) => {
       })
     } else {
         alert('Error: Github User Not Found')
-    }
-    });
+        }
+    })
+    .catch((error) => {
+        //Notice this. '.catch()' getting chained onto the end of the '.then()'
+        alert('unable to connect to Github')
+    })
+    
 };
 
 let formSubmitHandler = (event) => {
@@ -36,6 +41,11 @@ let formSubmitHandler = (event) => {
 }
 
 let displayRepos = (repos, searchTerm) => {
+    // check if api returned any repos
+    if (repos.length === 0) {
+        repoContainerEl.textContent = "No repositories found.";
+        return;
+    }
     console.log(repos);
     console.log(searchTerm);
     // clear old content
